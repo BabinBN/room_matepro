@@ -1,0 +1,7 @@
+{
+  "xsappname": "room_matepro_",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
+  "scopes": [],
+  "role-templates": []
+}
