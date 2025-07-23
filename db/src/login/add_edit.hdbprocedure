@@ -1,0 +1,105 @@
+PROCEDURE "ADD_EDIT_USER"(IN IN_PARAM NCLOB, OUT EX_MESSAGE NVARCHAR(200))
+AS
+BEGIN
+    DECLARE it_user_id BIGINT;
+    DECLARE it_full_name NVARCHAR(50);
+    DECLARE it_email NVARCHAR(50);
+    DECLARE it_phone_number NVARCHAR(15);
+    DECLARE it_password_pwd NVARCHAR(20);
+    DECLARE it_role_user NVARCHAR(20);
+    DECLARE it_created_at TIMESTAMP;
+    DECLARE it_updated_at TIMESTAMP;
+
+    DECLARE i INTEGER;
+
+    DECLARE user_exists INT;
+
+    -- Exit handler
+    DECLARE insert_error CONDITION FOR SQL_ERROR_CODE 10001;
+    DECLARE EXIT HANDLER FOR insert_error
+    BEGIN
+        EX_MESSAGE := 'Error: ' || ::SQL_ERROR_MESSAGE;
+    END;
+
+    temp_users = SELECT JT.*
+        FROM JSON_TABLE(
+            TO_CLOB(:IN_PARAM),
+            '$[*]' COLUMNS(
+                "user_id" BIGINT PATH '$.user_id',
+                "full_name" NVARCHAR(50) PATH '$.full_name',
+                "email" NVARCHAR(50) PATH '$.email',
+                "phone_number" NVARCHAR(15) PATH '$.phone_number',
+                "password_pwd" NVARCHAR(20) PATH '$.password_pwd',
+                "role_user" NVARCHAR(20) PATH '$.role_user',
+                "created_at" TIMESTAMP PATH '$.created_at',
+                "updated_at" TIMESTAMP PATH '$.updated_at'
+            )
+        ) AS JT;
+
+    FOR i IN 1..RECORD_COUNT(:temp_users) DO
+        it_user_id := :temp_users."user_id"[:i];
+        it_full_name := :temp_users."full_name"[:i];
+        it_email := :temp_users."email"[:i];
+        it_phone_number := :temp_users."phone_number"[:i];
+        it_password_pwd := :temp_users."password_pwd"[:i];
+        it_role_user := :temp_users."role_user"[:i];
+        it_created_at := :temp_users."created_at"[:i];
+        it_updated_at := :temp_users."updated_at"[:i];
+
+        IF it_user_id > 0 THEN
+            -- Update existing user
+            UPDATE "userdt"
+            SET
+                "full_name" = it_full_name,
+                "email" = it_email,
+                "phone_number" = it_phone_number,
+                "password_pwd" = it_password_pwd,
+                "role_user" = it_role_user,
+                "updated_at" = CURRENT_TIMESTAMP
+            WHERE
+                "user_id" = :it_user_id;
+        ELSE
+            -- Check if email already exists
+            SELECT COUNT(*) INTO user_exists FROM "userdt" WHERE "email" = it_email;
+
+            IF user_exists > 0 THEN
+                SIGNAL insert_error SET MESSAGE_TEXT = 'User with same email already exists';
+            ELSE
+                INSERT INTO "userdt" (
+                    "full_name",
+                    "email",
+                    "phone_number",
+                    "password_pwd",
+                    "role_user",
+                    "created_at",
+                    "updated_at"
+                ) VALUES (
+                    it_full_name,
+                    it_email,
+                    it_phone_number,
+                    it_password_pwd,
+                    it_role_user,
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
+                );
+
+                SELECT CURRENT_IDENTITY_VALUE() INTO it_user_id FROM "userdt";
+            END IF;
+        END IF;
+    END FOR;
+
+    -- Final output if needed
+    SELECT
+        0 AS "status",
+        "user_id",
+        "full_name",
+        "email",
+        "phone_number",
+        "role_user",
+        "created_at",
+        "updated_at"
+    FROM "userdt"
+    WHERE "user_id" = :it_user_id;
+
+    EX_MESSAGE := 'Success';
+END;
