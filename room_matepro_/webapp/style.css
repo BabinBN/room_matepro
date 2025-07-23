@@ -1,0 +1,17 @@
+
+.inputIcon {
+    padding-left: 0.5rem;
+    color: #666;
+}
+.emailPrefixIcon {
+    margin-right: 0.5rem;
+    color: #666;
+    padding-left: 0.3rem;
+}
+.customSideNav{
+position:obsolute;
+top: 0px;
+left: 0px;
+width: 100%;
+position: fixed;
+}

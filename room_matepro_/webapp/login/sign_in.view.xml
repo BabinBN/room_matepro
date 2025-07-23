@@ -1,0 +1,52 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    controllerName="roomatepro.roommatepro.login.SignIn">
+
+    <VBox
+        justifyContent="Center"
+        alignItems="Center"
+        class="sapUiContentPadding sapUiLargeMarginTop"
+        >
+        
+        <Panel class="shadow-lg sapUiLargeMarginTop">
+            <VBox class="sapUiMediumMargin " id="load" width="300px">
+                <HBox justifyContent="Center" class="sapUiTinyMarginBottom">
+                   <Image src="images/log.png" width="100px" height="80px" />
+                </HBox>
+                
+                <HBox justifyContent="Center" class="sapUiMediumMarginBottom">
+                    <Title text="Sign in to your account" level="H5" />
+                </HBox>
+                <Label text="{i18n>l_email}" labelFor="email"/>   
+                        
+                <Input id="email" type="Email" placeholder="{i18n>l_Entemail}" required="true" value="{loginModel>/login/email}"
+                    valueState="{= ${loginModel>/login/emailError} ? 'Error' : 'None' }"
+                    valueStateText="{loginModel>/login/emailErrorText}"  liveChange=".onEmailInputLiveChange" visible="{}"
+                    />
+           
+                <Label text="{i18n>l_password}" labelFor="passwordInput" class="sapUiSmallMarginTop"/>
+                <Input id="passwordInput" type="Password" placeholder="{i18n>l_Entpassword}" required="true"
+                    value="{loginModel>/login/password}"
+                    valueState="{= ${loginModel>/login/passwordError} ? 'Error' : 'None' }"
+                    valueStateText="{loginModel>/login/passwordErrorText}" liveChange=".onPasswordInputLiveChange"  visible="{}"
+                    />
+
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginTop">
+                    <CheckBox text="Keep me logged in" />
+                    <Link text="Forget password?" press=".onForgotPassword" />
+                </HBox>
+
+                <Button text="Login" type="Emphasized" class="sapUiMediumMarginTop" press=".onLogin" width="100%"/>
+
+                <HBox justifyContent="Center" class="sapUiSmallMarginTop">
+                    <Text text="Don't have an account?" />
+                    <Link text="Sign Up" class="sapUiTinyMarginBegin" press=".onSignUp"/>
+                </HBox>
+                <VBox id="googleSignInContainer" class="sapUiSmallMargin"/>
+   
+            </VBox>
+        </Panel>
+    </VBox>
+</mvc:View>

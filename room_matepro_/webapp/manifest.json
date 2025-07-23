@@ -79,12 +79,23 @@
           "target": [
             "TargetView"
           ]
+        },
+        {
+          "name":"login",
+          "pattern": "",
+          "target":[
+            "Login"
+          ]
         }
       ],
       "targets": {
         "TargetView": {
           "id": "View",
           "name": "View"
+        },
+        "Login":{
+          "viewId": "Login",
+          "viewName": "login.sign_in"
         }
       }
     },
