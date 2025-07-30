@@ -1,0 +1,74 @@
+<mvc:View
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:tnt="sap.tnt"
+  xmlns:f="sap.f"
+  height="100%"
+  controllerName="roomatepro.roommatepro.controller.dashboard">
+
+  <App>
+    <Page id="myPage" title="Room Mate Dashboard" enableScrolling="true">
+      
+      <!-- Header -->
+      <customHeader>
+        <OverflowToolbar>
+          <Button icon="sap-icon://menu2" press=".onCollapseExpandPress" />
+          <Image src="images/log.png" height="30px" />
+          <Title text="Room Mate Pro" level="H2" />
+          <ToolbarSpacer />
+          <Button icon="sap-icon://search" />
+          <Button icon="sap-icon://bell" />
+          <Avatar initials="SN" displaySize="XS" />
+        </OverflowToolbar>
+      </customHeader>
+
+      <!-- Main Layout -->
+      <content>
+        <HBox fitContainer="true">
+          
+          <!-- Side Navigation -->
+         
+            <tnt:SideNavigation id="sideNavigation" selectedKey="walked" expanded="false">
+              <tnt:NavigationList>
+                <tnt:NavigationListItem text="Home" icon="sap-icon://home" />
+                <tnt:NavigationListGroup text="New">
+                  <tnt:NavigationListItem text="People" icon="sap-icon://people-connected" />
+                  <tnt:NavigationListItem text="Building" icon="sap-icon://building">
+                    <tnt:NavigationListItem text="Office 01" />
+                    <tnt:NavigationListItem text="Office 02" />
+                  </tnt:NavigationListItem>
+                  <tnt:NavigationListItem text="Mileage" icon="sap-icon://mileage">
+                    <tnt:NavigationListItem text="Driven" />
+                    <tnt:NavigationListItem text="Walked" id="walked" />
+                  </tnt:NavigationListItem>
+                </tnt:NavigationListGroup>
+                <tnt:NavigationListGroup text="Recently used">
+                  <tnt:NavigationListItem text="Managing My Area" icon="sap-icon://kpi-managing-my-area" />
+                  <tnt:NavigationListItem text="Flight" icon="sap-icon://flight" />
+                  <tnt:NavigationListItem text="Map" icon="sap-icon://map-2" />
+                </tnt:NavigationListGroup>
+                <tnt:NavigationListGroup text="Restricted" enabled="false">
+                  <tnt:NavigationListItem text="Running" icon="sap-icon://physical-activity" />
+                  <tnt:NavigationListItem text="Scissors" icon="sap-icon://scissors" />
+                </tnt:NavigationListGroup>
+                <tnt:NavigationListItem text="Transport" icon="sap-icon://passenger-train" />
+              </tnt:NavigationList>
+
+              <tnt:fixedItem>
+                <tnt:NavigationList>
+                  <tnt:NavigationListItem text="Bar Chart" icon="sap-icon://bar-chart" />
+                  <tnt:NavigationListItem selectable="false" href="https://sap.com" target="_blank" text="External Link" icon="sap-icon://attachment" />
+                  <tnt:NavigationListItem text="Compare" icon="sap-icon://compare" />
+                </tnt:NavigationList>
+              </tnt:fixedItem>
+            </tnt:SideNavigation>
+       
+              <HBox class="sapUiSmallMargin" justifyContent="Start" >
+              <mvc:XMLView viewName="roomatepro.roommatepro.view.dashboardtiles" />
+            </HBox>
+        </HBox>
+      </content>
+    </Page>
+  </App>
+</mvc:View>

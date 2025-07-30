@@ -1,0 +1,22 @@
+<mvc:View
+  controllerName="roomatepro.roommatepro.controller.dashboardtiles"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:tnt="sap.tnt"
+  displayBlock="true">
+
+
+      <GenericTile header="Total Spent Today" subheader="July 24" class="sapUiTinyMarginEnd">
+        <TileContent>
+          <NumericContent value="₹560" />
+        </TileContent>
+      </GenericTile>
+
+      <GenericTile header="My Share" subheader="This Month">
+        <TileContent>
+          <NumericContent value="₹2,300" />
+        </TileContent>
+      </GenericTile>
+
+
+</mvc:View>

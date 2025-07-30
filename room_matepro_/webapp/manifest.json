@@ -79,6 +79,20 @@
           "target":[
             "Login"
           ]
+        },
+        {
+          "name": "dashboard",
+          "pattern": "dashboard",
+          "target": [
+            "Dashboard"
+          ]
+        },
+        {
+          "name": "dashboardtiles",
+          "pattern": "dashboardtiles",
+          "target": [
+            "DashboardTiles"
+          ]
         }
       ],
       "targets": {
@@ -86,6 +100,16 @@
           "viewName": "sign_in",
           "viewId": "Login",
           "viewLevel": 1
+        },
+        "Dashboard": {
+          "viewName": "dashboard",
+          "viewId": "Dashboard",
+          "viewLevel": 2
+        },
+        "DashboardTiles": {
+          "viewName": "dashboardtiles",
+          "viewId": "DashboardTiles",
+          "viewLevel": 3
         }
       }
     },
